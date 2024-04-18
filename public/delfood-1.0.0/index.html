@@ -12,17 +12,17 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>{% block title %}Welcome!{% endblock %}</title>
+  <title>Delfood</title>
 
 
   <!-- bootstrap core css -->
-  <link rel="stylesheet" type="text/css" href="{{asset('delfood-1.0.0/css/bootstrap.css')}}" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
 
   <!-- fonts style -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
 
   <!-- font awesome style -->
-  <link href="{{asset('delfood-1.0.0/css/font-awesome.min.css')}}" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
   <!-- nice select -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
   <!-- slidck slider -->
@@ -31,25 +31,20 @@
 
 
   <!-- Custom styles for this template -->
-  <link href="{{asset('delfood-1.0.0/css/style.css')}}" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
   <!-- responsive style -->
-  <link href="{{asset('delfood-1.0.0/css/responsive.css')}}" rel="stylesheet" />
-    {% block stylesheets %}
-        {% endblock %}
+  <link href="css/responsive.css" rel="stylesheet" />
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
 </head>
 
 <body>
-{% block body %}
+
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
       <div class="container-fluid">
         <nav class="navbar navbar-expand-lg custom_nav-container">
-          <a class="navbar-brand" href="{{path('app_main')}}">
+          <a class="navbar-brand" href="index.html">
             <span>
               Delfood
             </span>
@@ -69,15 +64,15 @@
             </div>
             <div class="custom_menu-btn">
               <button onclick="openNav()">
-                <img src="{{asset('delfood-1.0.0/delfood-1.0.0/images/menu.png')}}" alt="">
+                <img src="images/menu.png" alt="">
               </button>
             </div>
             <div id="myNav" class="overlay">
               <div class="overlay-content">
-                <a href="{{path('app_main')}}">Home</a>
-                <a href="{{asset('delfood-1.0.0/about.html')}}">About</a>
-                <a href="{{asset('delfood-1.0.0/blog.html')}}">Blog</a>
-                <a href="{{asset('delfood-1.0.0/testimonial.html')}}">Testimonial</a>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="blog.html">Blog</a>
+                <a href="testimonial.html">Testimonial</a>
               </div>
             </div>
           </div>
@@ -131,42 +126,42 @@
       <div class="slider_container">
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img1.png')}}" alt="" />
+            <img src="images/slider-img1.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img2.png')}}" alt="" />
+            <img src="images/slider-img2.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img3.png')}}" alt="" />
+            <img src="images/slider-img3.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img4.png')}}" alt="" />
+            <img src="images/slider-img4.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img1.png')}}" alt="" />
+            <img src="images/slider-img1.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img2.png')}}" alt="" />
+            <img src="images/slider-img2.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img3.png')}}" alt="" />
+            <img src="images/slider-img3.png" alt="" />
           </div>
         </div>
         <div class="item">
           <div class="img-box">
-            <img src="{{asset('delfood-1.0.0/images/slider-img4.png')}}" alt="" />
+            <img src="images/slider-img4.png" alt="" />
           </div>
         </div>
       </div>
@@ -188,7 +183,7 @@
         <div class="col-sm-6 col-md-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/r1.jpg')}}" class="box-img" alt="">
+              <img src="images/r1.jpg" class="box-img" alt="">
             </div>
             <div class="detail-box">
               <h4>
@@ -203,7 +198,7 @@
         <div class="col-sm-6 col-md-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/r2.jpg')}}" class="box-img" alt="">
+              <img src="images/r2.jpg" class="box-img" alt="">
             </div>
             <div class="detail-box">
               <h4>
@@ -218,7 +213,7 @@
         <div class="col-sm-6 col-md-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/r3.jpg')}}" class="box-img" alt="">
+              <img src="images/r3.jpg" class="box-img" alt="">
             </div>
             <div class="detail-box">
               <h4>
@@ -258,10 +253,10 @@
               </p>
               <div class="app_btn_box">
                 <a href="" class="mr-1">
-                  <img src="{{asset('delfood-1.0.0/images/google_play.png')}}" class="box-img" alt="">
+                  <img src="images/google_play.png" class="box-img" alt="">
                 </a>
                 <a href="">
-                  <img src="{{asset('delfood-1.0.0/images/app_store.png')}}" class="box-img" alt="">
+                  <img src="images/app_store.png" class="box-img" alt="">
                 </a>
               </div>
               <a href="" class="download_btn">
@@ -271,7 +266,7 @@
           </div>
           <div class="col-md-5 col-lg-4">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/mobile.png')}}" class="box-img" alt="">
+              <img src="images/mobile.png" class="box-img" alt="">
             </div>
           </div>
         </div>
@@ -295,7 +290,7 @@
         <div class="box">
           <div class="col-md-7 mx-auto">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/about-img.jpg')}}" class="box-img" alt="">
+              <img src="images/about-img.jpg" class="box-img" alt="">
             </div>
           </div>
           <div class="detail-box">
@@ -326,7 +321,7 @@
         <div class="col-md-6">
           <div class="box">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/n1.jpg')}}" class="box-img" alt="">
+              <img src="images/n1.jpg" class="box-img" alt="">
             </div>
             <div class="detail-box">
               <h4>
@@ -344,7 +339,7 @@
         <div class="col-md-6">
           <div class="box">
             <div class="img-box">
-              <img src="{{asset('delfood-1.0.0/images/n2.jpg')}}" class="box-img" alt="">
+              <img src="images/n2.jpg" class="box-img" alt="">
             </div>
             <div class="detail-box">
               <h4>
@@ -444,22 +439,22 @@
         <div class="info_links">
           <ul>
             <li class="active">
-              <a href="{{path('app_main')}}">
+              <a href="index.html">
                 Home
               </a>
             </li>
             <li>
-              <a href="{{asset('delfood-1.0.0/about.html')}}">
+              <a href="about.html">
                 About
               </a>
             </li>
             <li>
-              <a class="" href="{{asset('delfood-1.0.0/blog.html')}}">
+              <a class="" href="blog.html">
                 Blog
               </a>
             </li>
             <li>
-              <a class="" href="{{asset('delfood-1.0.0/testimonial.html')}}">
+              <a class="" href="testimonial.html">
                 Testimonial
               </a>
             </li>
@@ -479,7 +474,7 @@
       </div>
     </section>
     <!-- end info_section -->
-        {% endblock %}
+
 
     <!-- footer section -->
     <footer class="footer_section">
@@ -495,15 +490,15 @@
 
   </div>
   <!-- jQery -->
-  <script src="{{asset('delfood-1.0.0/js/jquery-3.4.1.min.js')}}"></script>
+  <script src="js/jquery-3.4.1.min.js"></script>
   <!-- bootstrap js -->
-  <script src="{{asset('delfood-1.0.0/js/bootstrap.js')}}"></script>
+  <script src="js/bootstrap.js"></script>
   <!-- slick  slider -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
   <!-- nice select -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js" integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
   <!-- custom js -->
-  <script src="{{asset('delfood-1.0.0/js/custom.js')}}"></script>
+  <script src="js/custom.js"></script>
 
 
 </body>
