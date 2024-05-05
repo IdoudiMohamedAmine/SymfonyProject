@@ -18,6 +18,10 @@ git remote add origin https://github.com/IdoudiMohamedAmine/SymfonyProject
 
 
 git add .
+
+
 git commit -m "initial commit of my symfony project"
-git push -u origun main
+
+
+git push -u origin main
  
