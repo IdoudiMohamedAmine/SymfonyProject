@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RecipesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +30,29 @@ class Recipes
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cuisine = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $user_id = null;
+
+    /**
+     * @var Collection<int, Ingredients>
+     */
+    #[ORM\ManyToMany(targetEntity: Ingredients::class, inversedBy: 'recipes')]
+    private Collection $ingredient_id;
+
+    #[ORM\Column]
+    private ?float $quantity = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $unit = null;
+
+    public function __construct()
+    {
+        $this->ingredient_id = new ArrayCollection();
+    }
+
+ 
 
     public function getId(): ?int
     {
@@ -93,4 +118,66 @@ class Recipes
 
         return $this;
     }
+
+    public function getUserId(): ?Users
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?Users $user_id): static
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredients>
+     */
+    public function getIngredientId(): Collection
+    {
+        return $this->ingredient_id;
+    }
+
+    public function addIngredientId(Ingredients $ingredientId): static
+    {
+        if (!$this->ingredient_id->contains($ingredientId)) {
+            $this->ingredient_id->add($ingredientId);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredientId(Ingredients $ingredientId): static
+    {
+        $this->ingredient_id->removeElement($ingredientId);
+
+        return $this;
+    }
+
+    public function getQuantity(): ?float
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(float $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getUnit(): ?string
+    {
+        return $this->unit;
+    }
+
+    public function setUnit(string $unit): static
+    {
+        $this->unit = $unit;
+
+        return $this;
+    }
+
+    
 }
