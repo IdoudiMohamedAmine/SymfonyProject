@@ -31,10 +31,6 @@ class Recipes
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cuisine = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user_id = null;
-
     /**
      * @var Collection<int, Ingredients>
      */
@@ -115,18 +111,6 @@ class Recipes
     public function setCuisine(?string $cuisine): static
     {
         $this->cuisine = $cuisine;
-
-        return $this;
-    }
-
-    public function getUserId(): ?Users
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?Users $user_id): static
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }
