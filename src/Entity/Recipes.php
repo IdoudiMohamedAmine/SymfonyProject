@@ -43,6 +43,9 @@ class Recipes
     #[ORM\Column(length: 255)]
     private ?string $unit = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->ingredient_id = new ArrayCollection();
@@ -159,6 +162,18 @@ class Recipes
     public function setUnit(string $unit): static
     {
         $this->unit = $unit;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
