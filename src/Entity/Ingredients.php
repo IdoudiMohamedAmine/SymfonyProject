@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\IngredientsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: IngredientsRepository::class)]
@@ -22,15 +23,17 @@ class Ingredients
     private ?string $category = null;
 
     /**
-     * @var Collection<int, Recipes>
+     * @var Collection<int, RecipeIngredient>
      */
-    #[ORM\ManyToMany(targetEntity: Recipes::class, mappedBy: 'ingredient_id')]
-    private Collection $recipes;
+    #[ORM\OneToMany(targetEntity: RecipeIngredient::class, mappedBy: 'ingredient_id')]
+    private Collection $recipeIngredients;
 
     public function __construct()
     {
-        $this->recipes = new ArrayCollection();
+        $this->recipeIngredients = new ArrayCollection();
     }
+
+    
 
     public function getId(): ?int
     {
@@ -62,29 +65,34 @@ class Ingredients
     }
 
     /**
-     * @return Collection<int, Recipes>
+     * @return Collection<int, RecipeIngredient>
      */
-    public function getRecipes(): Collection
+    public function getRecipeIngredients(): Collection
     {
-        return $this->recipes;
+        return $this->recipeIngredients;
     }
 
-    public function addRecipe(Recipes $recipe): static
+    public function addRecipeIngredient(RecipeIngredient $recipeIngredient): static
     {
-        if (!$this->recipes->contains($recipe)) {
-            $this->recipes->add($recipe);
-            $recipe->addIngredientId($this);
+        if (!$this->recipeIngredients->contains($recipeIngredient)) {
+            $this->recipeIngredients->add($recipeIngredient);
+            $recipeIngredient->setIngredientId($this);
         }
 
         return $this;
     }
 
-    public function removeRecipe(Recipes $recipe): static
+    public function removeRecipeIngredient(RecipeIngredient $recipeIngredient): static
     {
-        if ($this->recipes->removeElement($recipe)) {
-            $recipe->removeIngredientId($this);
+        if ($this->recipeIngredients->removeElement($recipeIngredient)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeIngredient->getIngredientId() === $this) {
+                $recipeIngredient->setIngredientId(null);
+            }
         }
 
         return $this;
     }
+
+    
 }

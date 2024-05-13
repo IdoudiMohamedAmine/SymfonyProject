@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\RecipesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+
 
 #[ORM\Entity(repositoryClass: RecipesRepository::class)]
 class Recipes
@@ -31,26 +33,27 @@ class Recipes
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cuisine = null;
 
-    /**
-     * @var Collection<int, Ingredients>
-     */
-    #[ORM\ManyToMany(targetEntity: Ingredients::class, inversedBy: 'recipes')]
-    private Collection $ingredient_id;
+   
 
-    #[ORM\Column]
-    private ?float $quantity = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $unit = null;
+
+ 
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, RecipeIngredient>
+     */
+    #[ORM\OneToMany(targetEntity: RecipeIngredient::class, mappedBy: 'recipe_id')]
+    private Collection $recipeIngredients;
+
     public function __construct()
     {
-        $this->ingredient_id = new ArrayCollection();
+        $this->recipeIngredients = new ArrayCollection();
     }
 
+   
  
 
     public function getId(): ?int
@@ -118,53 +121,8 @@ class Recipes
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ingredients>
-     */
-    public function getIngredientId(): Collection
-    {
-        return $this->ingredient_id;
-    }
+   
 
-    public function addIngredientId(Ingredients $ingredientId): static
-    {
-        if (!$this->ingredient_id->contains($ingredientId)) {
-            $this->ingredient_id->add($ingredientId);
-        }
-
-        return $this;
-    }
-
-    public function removeIngredientId(Ingredients $ingredientId): static
-    {
-        $this->ingredient_id->removeElement($ingredientId);
-
-        return $this;
-    }
-
-    public function getQuantity(): ?float
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(float $quantity): static
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
-
-    public function getUnit(): ?string
-    {
-        return $this->unit;
-    }
-
-    public function setUnit(string $unit): static
-    {
-        $this->unit = $unit;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -174,6 +132,36 @@ class Recipes
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RecipeIngredient>
+     */
+    public function getRecipeIngredients(): Collection
+    {
+        return $this->recipeIngredients;
+    }
+
+    public function addRecipeIngredient(RecipeIngredient $recipeIngredient): static
+    {
+        if (!$this->recipeIngredients->contains($recipeIngredient)) {
+            $this->recipeIngredients->add($recipeIngredient);
+            $recipeIngredient->setRecipeId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipeIngredient(RecipeIngredient $recipeIngredient): static
+    {
+        if ($this->recipeIngredients->removeElement($recipeIngredient)) {
+            // set the owning side to null (unless already changed)
+            if ($recipeIngredient->getRecipeId() === $this) {
+                $recipeIngredient->setRecipeId(null);
+            }
+        }
 
         return $this;
     }
