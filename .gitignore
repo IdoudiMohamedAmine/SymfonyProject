@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+/home/amine/SymfonyProject/.env
+/home/amine/SymfonyProject/migrations
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
