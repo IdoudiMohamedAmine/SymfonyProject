@@ -58,7 +58,15 @@
             <div class="User_option">
               <a href="">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                <a href="{{path('app_login')}}">Login</a>
+                {% if app.user %}
+								<li>
+									<a href="{{ path('app_logout') }}">Logout</a>
+								</li>
+							{% else %}
+								<li>
+									<a href="{{ path('app_login') }}">Login</a>
+								</li>
+							{% endif %}
               </a>
               <form class="form-inline ">
                 <input type="search" placeholder="Search" />
