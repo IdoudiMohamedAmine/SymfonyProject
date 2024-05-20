@@ -10,9 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Description</th>
-                <th>Cook_time</th>
-                <th>Image_url</th>
+                <th>Decription</th>
                 <th>Cuisine</th>
                 <th>actions</th>
             </tr>
@@ -22,9 +20,7 @@
             <tr>
                 <td>{{ recipe.id }}</td>
                 <td>{{ recipe.name }}</td>
-                <td>{{ recipe.description }}</td>
-                <td>{{ recipe.cookTime }}</td>
-                <td>{{ recipe.imageUrl }}</td>
+                <td>{{ recipe.decription }}</td>
                 <td>{{ recipe.cuisine }}</td>
                 <td>
                     <a href="{{ path('app_recipes_show', {'id': recipe.id}) }}">show</a>
@@ -33,7 +29,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

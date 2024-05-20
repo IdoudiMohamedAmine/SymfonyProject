@@ -34,9 +34,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-    
-    #[ORM\column(nullable:false)]
-    private ?string $name;
 
     /**
      * @var Collection<int, Recipes>
@@ -48,8 +45,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->recipes = new ArrayCollection();
     }
-
-
 
     public function getName(): ?string{
         return $this->name;

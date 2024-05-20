@@ -5,10 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
 
 #[ORM\Entity(repositoryClass: RecipesRepository::class)]
 class Recipes
@@ -18,43 +15,29 @@ class Recipes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $description = null;
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $decription = null;
 
-    #[ORM\Column]
-    private ?float $cook_time = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image_url = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 50, nullable: true)]
     private ?string $cuisine = null;
 
-   
-
-
-
- 
+    /**
+     * @var Collection<int, Ingredient>
+     */
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'recipes')]
+    private Collection $ingredients;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    /**
-     * @var Collection<int, RecipeIngredient>
-     */
-    #[ORM\OneToMany(targetEntity: RecipeIngredient::class, mappedBy: 'recipe_id')]
-    private Collection $recipeIngredients;
 
     public function __construct()
     {
-        $this->recipeIngredients = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
-
-   
- 
 
     public function getId(): ?int
     {
@@ -73,38 +56,14 @@ class Recipes
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getDecription(): ?string
     {
-        return $this->description;
+        return $this->decription;
     }
 
-    public function setDescription(string $description): static
+    public function setDecription(?string $decription): static
     {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    public function getCookTime(): ?float
-    {
-        return $this->cook_time;
-    }
-
-    public function setCookTime(float $cook_time): static
-    {
-        $this->cook_time = $cook_time;
-
-        return $this;
-    }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->image_url;
-    }
-
-    public function setImageUrl(?string $image_url): static
-    {
-        $this->image_url = $image_url;
+        $this->decription = $decription;
 
         return $this;
     }
@@ -121,8 +80,29 @@ class Recipes
         return $this;
     }
 
-   
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
 
+    public function addIngredient(Ingredient $ingredient): static
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
+        }
+
+        return $this;
+    }
+
+    public function removeIngredient(Ingredient $ingredient): static
+    {
+        $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
 
     public function getUser(): ?User
     {
@@ -135,36 +115,4 @@ class Recipes
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, RecipeIngredient>
-     */
-    public function getRecipeIngredients(): Collection
-    {
-        return $this->recipeIngredients;
-    }
-
-    public function addRecipeIngredient(RecipeIngredient $recipeIngredient): static
-    {
-        if (!$this->recipeIngredients->contains($recipeIngredient)) {
-            $this->recipeIngredients->add($recipeIngredient);
-            $recipeIngredient->setRecipeId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRecipeIngredient(RecipeIngredient $recipeIngredient): static
-    {
-        if ($this->recipeIngredients->removeElement($recipeIngredient)) {
-            // set the owning side to null (unless already changed)
-            if ($recipeIngredient->getRecipeId() === $this) {
-                $recipeIngredient->setRecipeId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    
 }
