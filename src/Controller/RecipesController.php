@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/recipes')]
 class RecipesController extends AbstractController
@@ -17,29 +18,31 @@ class RecipesController extends AbstractController
     #[Route('/', name: 'app_recipes_index', methods: ['GET'])]
     public function index(RecipesRepository $recipesRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('recipes/index.html.twig', [
             'recipes' => $recipesRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'app_recipes_new', methods: ['GET', 'POST'])]
+    #[isGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $recipe = new Recipes();
-        $recipe->setUser($this->getUser());
         $form = $this->createForm(RecipesType::class, $recipe);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $recipe->setUser($this->getUser());
+
             $entityManager->persist($recipe);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_recipes_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('recipes/new.html.twig', [
-            'recipe' => $recipe,
             'form' => $form,
         ]);
     }
