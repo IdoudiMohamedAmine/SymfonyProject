@@ -20,12 +20,9 @@ class RecipesType extends AbstractType
             ->add('cuisine')
             ->add('ingredients', EntityType::class, [
                 'class' => Ingredient::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+                'expanded' => true,
             ])
         ;
     }

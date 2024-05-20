@@ -15,12 +15,6 @@ class IngredientType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('recipes', EntityType::class, [
-                'class' => Recipes::class,
-                'choice_label' => 'id',
-                'multiple' => true,
-                'required' => false,
-            ])
         ;
     }
 
