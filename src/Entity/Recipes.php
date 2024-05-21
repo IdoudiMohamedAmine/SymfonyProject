@@ -34,9 +34,19 @@ class Recipes
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    private Collection $userswhofavorited;
+
+
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->userswhofavorited = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -115,4 +125,29 @@ class Recipes
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUserswhofavorited(): Collection
+    {
+        return $this->userswhofavorited;
+    }
+
+    public function addUserswhofavorited(User $userswhofavorited): static
+    {
+        if (!$this->userswhofavorited->contains($userswhofavorited)) {
+            $this->userswhofavorited->add($userswhofavorited);
+        }
+
+        return $this;
+    }
+
+    public function removeUserswhofavorited(User $userswhofavorited): static
+    {
+        $this->userswhofavorited->removeElement($userswhofavorited);
+
+        return $this;
+    }
+
 }

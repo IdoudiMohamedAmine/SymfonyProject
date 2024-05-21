@@ -3,10 +3,16 @@
 {% block title %}Recipes{% endblock %}
 
 {% block body %}
-    <h1>Recipes</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <img src="{{ asset('delfood-1.0.0/images/r1.jpg') }}" class="img-fluid rounded mx-auto d-block" alt="{{ recipe.name }}">
+                <h1 class="my-4 text-center">{{ recipe.name }}</h1>
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
+        <table class="table table-striped">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ recipe.id }}</td>
@@ -16,19 +22,23 @@
                 <td>{{ recipe.name }}</td>
             </tr>
             <tr>
-                <th>Decription</th>
+                <th>Description</th>
                 <td>{{ recipe.decription }}</td>
             </tr>
             <tr>
                 <th>Cuisine</th>
                 <td>{{ recipe.cuisine }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_recipes_index') }}">back to list</a>
+        <h2 class="my-4">Ingredients</h2>
+        <ul>
+            {% for ingredient in recipe.ingredients %}
+                <li>{{ ingredient.name }}</li>
+            {% endfor %}
+        </ul>
 
-    <a href="{{ path('app_recipes_edit', {'id': recipe.id}) }}">edit</a>
-
-    {{ include('recipes/_delete_form.html.twig') }}
+        <a href="{{ path('app_main') }}" class="btn btn-primary">Back</a>
+    </div>
 {% endblock %}

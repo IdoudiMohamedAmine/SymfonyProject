@@ -1,0 +1,24 @@
+{# templates/users/favorites.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-4">Your Favorite Recipes</h1>
+
+        {% for recipe in favoriteRecipes %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2 class="card-title">{{ recipe.name }}</h2>
+                    <form method="post" action="{{ path('app_remove_from_favorites', {'id': recipe.id}) }}">
+                        <button type="submit" class="btn btn-danger">Remove from Favorites</button>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-info" role="alert">
+                You have no favorite recipes.
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

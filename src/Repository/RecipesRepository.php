@@ -20,6 +20,17 @@ class RecipesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Recipes::class);
     }
+    public function findWithIngredients(array $ingredients)
+    {
+        $qb = $this->createQueryBuilder('r');
+
+        foreach ($ingredients as $key => $ingredient) {
+            $qb->orWhere(':ingredient'.$key.' MEMBER OF r.ingredients')
+                ->setParameter('ingredient'.$key, $ingredient);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 
     //    /**
     //     * @return Recipes[] Returns an array of Recipes objects
